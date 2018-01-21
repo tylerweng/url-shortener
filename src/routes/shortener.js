@@ -17,7 +17,7 @@ router.get('/', (req, res) => {
 })
 
 router.get('/:full_url', (req, res) => {
-  console.log(`GET req to /`)
+  console.log(`GET req to /${req.params.full_url}`)
   controller.findAllByFullUrl(req, res)
 })
 
