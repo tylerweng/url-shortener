@@ -14,7 +14,7 @@ const setServer = cb => {
   server.set('port', process.env.PORT || 8081)
 
   // Backend routes
-  server.use('/api', routes)
+  server.use('/', routes)
 
   // Application-level middleware
   // Handle uncaught server errors

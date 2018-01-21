@@ -11,7 +11,7 @@ const controller = {
     })
   },
   redirect: (req, res) => {
-    model.findById(req.params.id)
+    model.findById(req.params._id)
     .lean().exec((err, doc) => {
       if (doc === null) {
         res.status(404).send(status_codes[404])
@@ -41,10 +41,10 @@ const controller = {
   post: (req, res) => {
     try {
       const full_url = req.body.full_url
-      const shortened_url = service.get_shortened_url(full_url)
-      console.log(shortened_url)
-      service.save_doc(full_url, shortened_url)
-      console.log(`full_url: ${full_url} successfully converted to shortened_url: ${shortened_url}`)
+      const _id = service.hash_code(full_url)
+      console.log(_id)
+      service.save_doc(full_url, _id)
+      console.log(`full_url: ${full_url} successfully converted to _id: ${_id}`)
       res.status(200).send(status_codes[200])
     } catch (err) {
       console.log(`Error making post request caused by: ${err}`)
