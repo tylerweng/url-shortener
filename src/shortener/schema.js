@@ -3,11 +3,12 @@ import { Schema } from 'mongoose'
 const schema = new Schema(
   {
     full_url: String,
-    shortened_url: String,
-    timestamp: Date
+    shortened_url: String
   }, 
   {
-    versionKey: false
+    versionKey: false,
+    _id: true,
+    timestamps: true
   }
 )
 

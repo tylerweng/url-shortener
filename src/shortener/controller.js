@@ -10,6 +10,16 @@ const controller = {
       res.json(doc)
     })
   },
+  redirect: (req, res) => {
+    model.findById(req.params.id)
+    .lean().exec((err, doc) => {
+      if (doc === null) {
+        res.status(404).send(status_codes[404])
+      } else {
+        res.redirect(doc.full_url)
+      }
+    })
+  },
   findAllByFullUrl: (req, res) => {
     model.find(
       {
@@ -32,6 +42,7 @@ const controller = {
     try {
       const full_url = req.body.full_url
       const shortened_url = service.get_shortened_url(full_url)
+      console.log(shortened_url)
       service.save_doc(full_url, shortened_url)
       console.log(`full_url: ${full_url} successfully converted to shortened_url: ${shortened_url}`)
       res.status(200).send(status_codes[200])

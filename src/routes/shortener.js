@@ -16,7 +16,11 @@ router.get('/', (req, res) => {
   controller.index(req, res)
 })
 
-router.get('/:full_url', (req, res) => {
+router.get('/:id', (req, res) => {
+  controller.redirect(req, res)
+})
+
+router.get('/full_url/:full_url', (req, res) => {
   console.log(`GET req to /${req.params.full_url}`)
   controller.findAllByFullUrl(req, res)
 })
