@@ -16,6 +16,11 @@ router.get('/', (req, res) => {
   controller.index(req, res)
 })
 
+router.get('/:full_url', (req, res) => {
+  console.log(`GET req to /`)
+  controller.findAllByFullUrl(req, res)
+})
+
 router.post('/', jsonParser, (req, res) => {
   console.log(`POST req to /`)
   controller.post(req, res)

@@ -4,11 +4,28 @@ import status_codes from '../status_codes'
 
 const controller = {
   index: (req, res) => {
-    console.log(req.query)
     model.find({})
     .limit(req.query.limit === undefined ? 0  : Number(req.query.limit))
     .lean().exec((err, doc) => {
       res.json(doc)
+    })
+  },
+  findAllByFullUrl: (req, res) => {
+    model.find(
+      {
+        full_url: {
+          $regex: req.params.full_url,
+          $options: 'i'
+        }
+      }
+    )
+    .limit(req.query.limit === undefined ? 0 : Number(req.query.limit))
+    .lean().exec((err, doc) => {
+      if (doc.length === 0) {
+        res.status(404).send(status_codes[404])
+      } else {
+        res.json(doc)
+      }
     })
   },
   post: (req, res) => {
